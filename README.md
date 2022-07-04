@@ -1,5 +1,5 @@
-# grpcStreamingServer
-grpcStreamingServer Example 
+# grpcStreamingAPI
+ Example 
 <h2> This project I have four type of grpc API</h2>
 <p>1. Unary API </p>
 <p>- SayHello(c)</p>
