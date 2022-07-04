@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package streamproto;
+
+option go_package = "streampb";
+
+message HelloRequest {
+    string name =1;
+}
+message HelloResponse {
+    string message =1;
+}
+message Request {
+    repeated int32 numbers = 1;
+}
+message Response {
+    string result = 1;
+}
+message ResponseAverange {
+    float result = 1;
+}
+service ApiProto{
+    rpc Greeter(HelloRequest)returns (HelloResponse){};
+    rpc CheckPrimeNumber (Request)returns (stream Response){};
+    rpc Average(stream Request)returns (ResponseAverange){}
+}
+
+// message SomeNumbers {
+//     repeated int list = 1;
+// }
+// This request:
+
+// localhost:7000/some-request?list=2&&list=12&&list=22
+// and I've got next message:
+
+// {"list":[2,12,22]}
