@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 	"math"
 	"net"
@@ -26,22 +27,20 @@ func (s *server) Greeter(ctx context.Context, req *streampb.HelloRequest) (*stre
 
 // Grpc type Server streaming API
 func (s *server) CheckPrimeNumber(req *streampb.Request, stream streampb.ApiProto_CheckPrimeNumberServer) error {
-	// log.Println("Check Numbers Prime")
+	log.Println("Check Numbers Prime")
 	numsCheck := req.Numbers
-	// log.Printf("List number check:%v", numsCheck)
 	var wg sync.WaitGroup
 	for i, n := range numsCheck {
-		log.Printf("STT:%v", i)
 		wg.Add(1)
-		go func(num int32) {
+		go func(num int32, i int) {
 			defer wg.Done()
-			log.Printf("Check number:%v", num)
+			log.Printf("STT; %d - Check number:%v", i, num)
 			msg := NumberIsPrime(num)
 			stream.Send(&streampb.Response{
 				Result: msg,
 			})
 
-		}(int32(n))
+		}(int32(n), i)
 	}
 	wg.Wait()
 	return nil
@@ -49,6 +48,62 @@ func (s *server) CheckPrimeNumber(req *streampb.Request, stream streampb.ApiProt
 }
 
 // grpc Client streaming API
+
+func (s *server) Average(stream streampb.ApiProto_AverageServer) error {
+	log.Println("GetAverage")
+
+	var sum int64
+	var count int32
+	for {
+		req, err := stream.Recv()
+		if err == io.EOF {
+			resp := &streampb.ResponseAverange{
+				Result: float32(sum) / float32(count),
+			}
+			log.Printf("Average=%v", resp.Result)
+			return stream.SendAndClose(resp)
+
+		} else if err != nil {
+			log.Fatalf("Error while rev Average:%v", err)
+		}
+
+		// log.Println(req.GetNumber())
+		sum += req.GetNumber()
+		count++
+	}
+}
+
+// grpc Bi Directional API
+func (s *server) FindMax(stream streampb.ApiProto_FindMaxServer) error {
+	log.Println("FindMax")
+	var max int64
+	for {
+		req, err := stream.Recv()
+		if err == io.EOF {
+			log.Printf("Max=%v", max)
+			log.Println("Client finish streaming")
+
+			return nil
+		}
+		if err != nil {
+			log.Fatalf("Error while recv FindMax ")
+			return err
+		}
+		num := req.GetNumber()
+		if num > max {
+			max = num
+		}
+
+		err = stream.Send(&streampb.ResponseFindmax{
+			Max: max,
+		})
+		if err != nil {
+			log.Fatalf("Send Max error: %v", err)
+			return err
+		}
+	}
+
+}
 
 func main() {
 	log.Println("Server Starting ...")

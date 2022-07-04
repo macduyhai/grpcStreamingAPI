@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"sync"
 	"time"
 
 	streampb "github.com/macduyhai/grpcStreamingServer/streamproto"
@@ -18,7 +19,7 @@ const (
 )
 
 type ListNums struct {
-	nums []int32 `json:"nums"`
+	Nums []int32 `json:"nums"`
 }
 
 func main() {
@@ -32,15 +33,22 @@ func main() {
 	defer conn.Close()
 
 	c := streampb.NewApiProtoClient(conn)
-
+	// Unary API
 	SayHello(c)
-	// Test streaming server API
+	// Streaming server API
 	ln := LoadDataTest(pathTest)
-	log.Println(ln.nums)
-	CheckNumberPrime(c, ln.nums)
+	// log.Println(ln.Nums)
+	CheckPrime(c, ln.Nums)
+	//Streaming Client API
+	GetAverage(c, ln.Nums)
+	// Bi Directional API
+	FindMax(c, ln.Nums)
 
 }
+
+// SayHello : Unary API
 func SayHello(p streampb.ApiProtoClient) {
+	startTime := time.Now()
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	log.Println(name + " :Send --> Hi")
@@ -52,11 +60,15 @@ func SayHello(p streampb.ApiProtoClient) {
 	}
 
 	log.Printf("Message: %s", resp.Message)
+	log.Printf("Execution time %s\n", time.Since(startTime))
 }
-func CheckNumberPrime(s streampb.ApiProtoClient, arr []int32) {
+
+// CheckNumberPrime : Server streaming  API
+func CheckPrime(c streampb.ApiProtoClient, arr []int32) {
+	startTime := time.Now()
 	log.Println("Check Numbers Prime")
-	log.Println(arr)
-	stream, err := s.CheckPrimeNumber(context.Background(), &streampb.Request{
+	// log.Println(arr)
+	stream, err := c.CheckPrimeNumber(context.Background(), &streampb.Request{
 		// Numbers: []int32{1, 2, 3, 4},
 		Numbers: arr,
 	})
@@ -70,11 +82,92 @@ func CheckNumberPrime(s streampb.ApiProtoClient, arr []int32) {
 		resp, recvErr := stream.Recv()
 		if recvErr == io.EOF {
 			log.Println("Server finish streaming")
+			log.Printf("Execution time %s\n", time.Since(startTime))
 			return
 		}
 		log.Println(resp.Result)
 
 	}
+
+}
+
+//Streaming Client API
+
+func GetAverage(c streampb.ApiProtoClient, arr []int32) {
+	startTime := time.Now()
+	log.Println("Get Average")
+	stream, err := c.Average(context.Background())
+	if err != nil {
+		log.Fatalf("get Average err:%v", err)
+	}
+	// arrtest := []int{1, 2, 3, 4, 1232131231231231212}
+	// for _, num := range arrtest {
+	for _, num := range arr {
+		err := stream.Send(&streampb.RequestAverange{
+			Number: int64(num),
+		})
+		if err != nil {
+			log.Fatalf("Send average request error:%v", err)
+		}
+
+	}
+	resp, err := stream.CloseAndRecv()
+	if err != nil {
+		log.Fatalf("Error while rev from server:%v", err)
+	}
+	log.Printf("Avarage response -> %v", resp)
+	log.Printf("Execution time %s\n", time.Since(startTime))
+
+}
+
+//FindMax : BI Directionall API
+
+func FindMax(s streampb.ApiProtoClient, arr []int32) {
+	startTime := time.Now()
+	log.Println("Find Max")
+	stream, err := s.FindMax(context.Background())
+	if err != nil {
+		log.Fatalf("FinMax err init stream:%v", err)
+	}
+
+	var wg sync.WaitGroup
+	wg.Add(2)
+	// rountine send request
+	go func() {
+
+		log.Printf("Array input :%v", arr)
+		for _, num := range arr {
+
+			err := stream.Send(&streampb.RequestFindMax{
+				Number: int64(num),
+			})
+			if err != nil {
+				log.Fatalf("Error while send FindMax:%v", err)
+			}
+		}
+		stream.CloseSend()
+		wg.Done()
+	}()
+
+	// routine recv message
+	go func() {
+		for {
+			resp, err := stream.Recv()
+			if err == io.EOF {
+				log.Println("Server stop streaming")
+				break
+			}
+			if err != nil {
+				log.Fatalf("Error while recv Max:%v", err)
+				break
+			}
+			log.Printf("Max:%v", resp.Max)
+		}
+		wg.Done()
+	}()
+
+	wg.Wait()
+	log.Printf("Execution time %s\n", time.Since(startTime))
 
 }
 func LoadDataTest(path string) (result ListNums) {
@@ -88,6 +181,6 @@ func LoadDataTest(path string) (result ListNums) {
 	if err != nil {
 		log.Fatalf("Parser error : %v", err)
 	}
-	log.Println(result)
+	// log.Println(result)
 	return result
 }

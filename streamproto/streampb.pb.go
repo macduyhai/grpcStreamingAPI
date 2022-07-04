@@ -180,6 +180,45 @@ func (m *Response) GetResult() string {
 	return ""
 }
 
+type RequestAverange struct {
+	Number               int64    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RequestAverange) Reset()         { *m = RequestAverange{} }
+func (m *RequestAverange) String() string { return proto.CompactTextString(m) }
+func (*RequestAverange) ProtoMessage()    {}
+func (*RequestAverange) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5ad6367b21c5930d, []int{4}
+}
+
+func (m *RequestAverange) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RequestAverange.Unmarshal(m, b)
+}
+func (m *RequestAverange) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RequestAverange.Marshal(b, m, deterministic)
+}
+func (m *RequestAverange) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RequestAverange.Merge(m, src)
+}
+func (m *RequestAverange) XXX_Size() int {
+	return xxx_messageInfo_RequestAverange.Size(m)
+}
+func (m *RequestAverange) XXX_DiscardUnknown() {
+	xxx_messageInfo_RequestAverange.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RequestAverange proto.InternalMessageInfo
+
+func (m *RequestAverange) GetNumber() int64 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
 type ResponseAverange struct {
 	Result               float32  `protobuf:"fixed32,1,opt,name=result,proto3" json:"result,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -191,7 +230,7 @@ func (m *ResponseAverange) Reset()         { *m = ResponseAverange{} }
 func (m *ResponseAverange) String() string { return proto.CompactTextString(m) }
 func (*ResponseAverange) ProtoMessage()    {}
 func (*ResponseAverange) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ad6367b21c5930d, []int{4}
+	return fileDescriptor_5ad6367b21c5930d, []int{5}
 }
 
 func (m *ResponseAverange) XXX_Unmarshal(b []byte) error {
@@ -219,35 +258,120 @@ func (m *ResponseAverange) GetResult() float32 {
 	return 0
 }
 
+type RequestFindMax struct {
+	Number               int64    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RequestFindMax) Reset()         { *m = RequestFindMax{} }
+func (m *RequestFindMax) String() string { return proto.CompactTextString(m) }
+func (*RequestFindMax) ProtoMessage()    {}
+func (*RequestFindMax) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5ad6367b21c5930d, []int{6}
+}
+
+func (m *RequestFindMax) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RequestFindMax.Unmarshal(m, b)
+}
+func (m *RequestFindMax) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RequestFindMax.Marshal(b, m, deterministic)
+}
+func (m *RequestFindMax) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RequestFindMax.Merge(m, src)
+}
+func (m *RequestFindMax) XXX_Size() int {
+	return xxx_messageInfo_RequestFindMax.Size(m)
+}
+func (m *RequestFindMax) XXX_DiscardUnknown() {
+	xxx_messageInfo_RequestFindMax.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RequestFindMax proto.InternalMessageInfo
+
+func (m *RequestFindMax) GetNumber() int64 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type ResponseFindmax struct {
+	Max                  int64    `protobuf:"varint,1,opt,name=Max,proto3" json:"Max,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ResponseFindmax) Reset()         { *m = ResponseFindmax{} }
+func (m *ResponseFindmax) String() string { return proto.CompactTextString(m) }
+func (*ResponseFindmax) ProtoMessage()    {}
+func (*ResponseFindmax) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5ad6367b21c5930d, []int{7}
+}
+
+func (m *ResponseFindmax) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ResponseFindmax.Unmarshal(m, b)
+}
+func (m *ResponseFindmax) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ResponseFindmax.Marshal(b, m, deterministic)
+}
+func (m *ResponseFindmax) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ResponseFindmax.Merge(m, src)
+}
+func (m *ResponseFindmax) XXX_Size() int {
+	return xxx_messageInfo_ResponseFindmax.Size(m)
+}
+func (m *ResponseFindmax) XXX_DiscardUnknown() {
+	xxx_messageInfo_ResponseFindmax.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ResponseFindmax proto.InternalMessageInfo
+
+func (m *ResponseFindmax) GetMax() int64 {
+	if m != nil {
+		return m.Max
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*HelloRequest)(nil), "streamproto.HelloRequest")
 	proto.RegisterType((*HelloResponse)(nil), "streamproto.HelloResponse")
 	proto.RegisterType((*Request)(nil), "streamproto.Request")
 	proto.RegisterType((*Response)(nil), "streamproto.Response")
+	proto.RegisterType((*RequestAverange)(nil), "streamproto.RequestAverange")
 	proto.RegisterType((*ResponseAverange)(nil), "streamproto.ResponseAverange")
+	proto.RegisterType((*RequestFindMax)(nil), "streamproto.RequestFindMax")
+	proto.RegisterType((*ResponseFindmax)(nil), "streamproto.ResponseFindmax")
 }
 
 func init() { proto.RegisterFile("streamproto/streampb.proto", fileDescriptor_5ad6367b21c5930d) }
 
 var fileDescriptor_5ad6367b21c5930d = []byte{
-	// 259 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x91, 0x4f, 0x4f, 0x83, 0x40,
-	0x10, 0xc5, 0xbb, 0xfe, 0x29, 0x38, 0x6a, 0xd2, 0x6c, 0xd4, 0x20, 0x89, 0x49, 0x33, 0x5e, 0xd0,
-	0x03, 0x1a, 0xfd, 0x04, 0x6d, 0x0f, 0x7a, 0x32, 0x0d, 0x47, 0x6f, 0x60, 0x26, 0xd8, 0xc8, 0x02,
-	0xee, 0x2c, 0x7e, 0x55, 0xbf, 0x8e, 0x71, 0x65, 0x0c, 0x36, 0x78, 0x9b, 0xc7, 0xfc, 0xe6, 0xf1,
-	0x5e, 0x16, 0x62, 0x76, 0x96, 0x72, 0xd3, 0xda, 0xc6, 0x35, 0x37, 0xfd, 0x5c, 0xa4, 0x5e, 0xea,
-	0xc3, 0xc1, 0x0e, 0x11, 0x8e, 0x1e, 0xa9, 0xaa, 0x9a, 0x8c, 0xde, 0x3b, 0x62, 0xa7, 0x35, 0xec,
-	0xd5, 0xb9, 0xa1, 0x48, 0xcd, 0x55, 0x72, 0x90, 0xf9, 0x19, 0xaf, 0xe0, 0xb8, 0x67, 0xb8, 0x6d,
-	0x6a, 0x26, 0x1d, 0x41, 0x60, 0x88, 0x39, 0x2f, 0x85, 0x13, 0x89, 0x97, 0x10, 0x88, 0x53, 0x04,
-	0x41, 0xdd, 0x99, 0x82, 0x2c, 0x47, 0x6a, 0xbe, 0x9b, 0xec, 0x67, 0x22, 0x11, 0x21, 0xfc, 0xb5,
-	0x3a, 0x83, 0xa9, 0x25, 0xee, 0x2a, 0xd7, 0x3b, 0xf5, 0x0a, 0xaf, 0x61, 0x26, 0xcc, 0xe2, 0x83,
-	0x6c, 0x5e, 0x97, 0xdb, 0xec, 0x8e, 0xb0, 0x77, 0x9f, 0x0a, 0xc2, 0x45, 0xbb, 0x59, 0xfb, 0x76,
-	0x4b, 0x08, 0x1e, 0x2c, 0x91, 0x23, 0xab, 0xcf, 0xd3, 0x41, 0xd3, 0x74, 0x58, 0x33, 0x8e, 0xc7,
-	0x56, 0x3f, 0xbf, 0xc3, 0x89, 0x5e, 0xc1, 0x6c, 0xf5, 0x4a, 0x2f, 0x6f, 0x6b, 0xbb, 0x31, 0xf4,
-	0xe4, 0x53, 0xeb, 0x93, 0x3f, 0x17, 0xe2, 0x73, 0xba, 0xf5, 0x55, 0x2c, 0x6e, 0xd5, 0x77, 0x10,
-	0x9f, 0xbc, 0xa4, 0x7f, 0x6e, 0x2f, 0x46, 0x6f, 0xa5, 0x2d, 0x4e, 0x12, 0xb5, 0x84, 0xe7, 0x50,
-	0x1e, 0xaf, 0x98, 0x7a, 0xee, 0xfe, 0x2b, 0x00, 0x00, 0xff, 0xff, 0xb1, 0xf1, 0x10, 0xb5, 0xdb,
-	0x01, 0x00, 0x00,
+	// 328 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x92, 0x5f, 0x4f, 0xb3, 0x30,
+	0x14, 0xc6, 0xc7, 0xf6, 0xbe, 0x63, 0x1e, 0xff, 0x2d, 0x8d, 0x1a, 0xc4, 0x99, 0x2c, 0xdd, 0x0d,
+	0xf3, 0x02, 0x17, 0xfd, 0x04, 0xdb, 0x12, 0x35, 0x26, 0x33, 0x0b, 0x97, 0xde, 0x15, 0x3d, 0x41,
+	0x22, 0x05, 0x6c, 0xc1, 0xf0, 0x9d, 0xfc, 0x92, 0x86, 0xd2, 0x2e, 0x68, 0xf0, 0xee, 0x3c, 0x9c,
+	0x5f, 0x7f, 0x34, 0x4f, 0x0a, 0xae, 0x2c, 0x04, 0x32, 0x9e, 0x8b, 0xac, 0xc8, 0xae, 0xf5, 0x1c,
+	0xfa, 0x2a, 0x92, 0xfd, 0xd6, 0x8e, 0x52, 0x38, 0x78, 0xc0, 0x24, 0xc9, 0x02, 0xfc, 0x28, 0x51,
+	0x16, 0x84, 0xc0, 0xbf, 0x94, 0x71, 0x74, 0xac, 0xa9, 0xe5, 0xed, 0x05, 0x6a, 0xa6, 0x73, 0x38,
+	0xd4, 0x8c, 0xcc, 0xb3, 0x54, 0x22, 0x71, 0xc0, 0xe6, 0x28, 0x25, 0x8b, 0x0c, 0x67, 0x22, 0x9d,
+	0x81, 0x6d, 0x4c, 0x0e, 0xd8, 0x69, 0xc9, 0x43, 0x14, 0xd2, 0xb1, 0xa6, 0x03, 0xef, 0x7f, 0x60,
+	0x22, 0xa5, 0x30, 0xda, 0xa9, 0xce, 0x60, 0x28, 0x50, 0x96, 0x49, 0xa1, 0x4d, 0x3a, 0xd1, 0x39,
+	0x1c, 0x6b, 0xd1, 0xf2, 0x13, 0x05, 0x4b, 0x23, 0x85, 0x36, 0x06, 0x85, 0x0e, 0x02, 0x9d, 0xe8,
+	0x15, 0x8c, 0x8d, 0xae, 0xcd, 0xb6, 0xb4, 0xfd, 0x9d, 0xd6, 0x83, 0x23, 0xad, 0xbd, 0x8b, 0xd3,
+	0xd7, 0x0d, 0xab, 0xfe, 0xb4, 0xce, 0xea, 0x0b, 0x34, 0xd6, 0x1a, 0xe5, 0xac, 0x22, 0x63, 0x18,
+	0x6c, 0x58, 0xa5, 0xb9, 0x7a, 0xbc, 0xf9, 0xea, 0xc3, 0x68, 0x99, 0xc7, 0x5b, 0xd5, 0xeb, 0x0a,
+	0xec, 0x7b, 0x81, 0x58, 0xa0, 0x20, 0xe7, 0x7e, 0xab, 0x63, 0xbf, 0x5d, 0xb0, 0xeb, 0x76, 0xad,
+	0x9a, 0xff, 0xd0, 0x1e, 0x59, 0xc3, 0x78, 0xfd, 0x86, 0x2f, 0xef, 0x5b, 0x11, 0x73, 0x7c, 0x52,
+	0x37, 0x21, 0x27, 0x3f, 0x4e, 0x18, 0xcf, 0xe9, 0xaf, 0xaf, 0x46, 0xb1, 0xb0, 0xc8, 0x23, 0xd8,
+	0xaa, 0x88, 0x08, 0xc9, 0xa4, 0xeb, 0xac, 0x69, 0xc9, 0xbd, 0xec, 0x74, 0x98, 0x35, 0xed, 0x79,
+	0xca, 0x65, 0x9a, 0xba, 0xe8, 0x72, 0xe9, 0xa5, 0x3b, 0xe9, 0x54, 0xe9, 0xe6, 0x6a, 0xd3, 0xc2,
+	0x5a, 0xc1, 0xf3, 0xc8, 0x3c, 0xc5, 0x70, 0xa8, 0xc0, 0xdb, 0xef, 0x00, 0x00, 0x00, 0xff, 0xff,
+	0x12, 0xaf, 0x00, 0x37, 0xa9, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -265,6 +389,7 @@ type ApiProtoClient interface {
 	Greeter(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
 	CheckPrimeNumber(ctx context.Context, in *Request, opts ...grpc.CallOption) (ApiProto_CheckPrimeNumberClient, error)
 	Average(ctx context.Context, opts ...grpc.CallOption) (ApiProto_AverageClient, error)
+	FindMax(ctx context.Context, opts ...grpc.CallOption) (ApiProto_FindMaxClient, error)
 }
 
 type apiProtoClient struct {
@@ -326,7 +451,7 @@ func (c *apiProtoClient) Average(ctx context.Context, opts ...grpc.CallOption) (
 }
 
 type ApiProto_AverageClient interface {
-	Send(*Request) error
+	Send(*RequestAverange) error
 	CloseAndRecv() (*ResponseAverange, error)
 	grpc.ClientStream
 }
@@ -335,7 +460,7 @@ type apiProtoAverageClient struct {
 	grpc.ClientStream
 }
 
-func (x *apiProtoAverageClient) Send(m *Request) error {
+func (x *apiProtoAverageClient) Send(m *RequestAverange) error {
 	return x.ClientStream.SendMsg(m)
 }
 
@@ -350,11 +475,43 @@ func (x *apiProtoAverageClient) CloseAndRecv() (*ResponseAverange, error) {
 	return m, nil
 }
 
+func (c *apiProtoClient) FindMax(ctx context.Context, opts ...grpc.CallOption) (ApiProto_FindMaxClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ApiProto_serviceDesc.Streams[2], "/streamproto.ApiProto/FindMax", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &apiProtoFindMaxClient{stream}
+	return x, nil
+}
+
+type ApiProto_FindMaxClient interface {
+	Send(*RequestFindMax) error
+	Recv() (*ResponseFindmax, error)
+	grpc.ClientStream
+}
+
+type apiProtoFindMaxClient struct {
+	grpc.ClientStream
+}
+
+func (x *apiProtoFindMaxClient) Send(m *RequestFindMax) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *apiProtoFindMaxClient) Recv() (*ResponseFindmax, error) {
+	m := new(ResponseFindmax)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // ApiProtoServer is the server API for ApiProto service.
 type ApiProtoServer interface {
 	Greeter(context.Context, *HelloRequest) (*HelloResponse, error)
 	CheckPrimeNumber(*Request, ApiProto_CheckPrimeNumberServer) error
 	Average(ApiProto_AverageServer) error
+	FindMax(ApiProto_FindMaxServer) error
 }
 
 // UnimplementedApiProtoServer can be embedded to have forward compatible implementations.
@@ -369,6 +526,9 @@ func (*UnimplementedApiProtoServer) CheckPrimeNumber(req *Request, srv ApiProto_
 }
 func (*UnimplementedApiProtoServer) Average(srv ApiProto_AverageServer) error {
 	return status.Errorf(codes.Unimplemented, "method Average not implemented")
+}
+func (*UnimplementedApiProtoServer) FindMax(srv ApiProto_FindMaxServer) error {
+	return status.Errorf(codes.Unimplemented, "method FindMax not implemented")
 }
 
 func RegisterApiProtoServer(s *grpc.Server, srv ApiProtoServer) {
@@ -420,7 +580,7 @@ func _ApiProto_Average_Handler(srv interface{}, stream grpc.ServerStream) error 
 
 type ApiProto_AverageServer interface {
 	SendAndClose(*ResponseAverange) error
-	Recv() (*Request, error)
+	Recv() (*RequestAverange, error)
 	grpc.ServerStream
 }
 
@@ -432,8 +592,34 @@ func (x *apiProtoAverageServer) SendAndClose(m *ResponseAverange) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *apiProtoAverageServer) Recv() (*Request, error) {
-	m := new(Request)
+func (x *apiProtoAverageServer) Recv() (*RequestAverange, error) {
+	m := new(RequestAverange)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _ApiProto_FindMax_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ApiProtoServer).FindMax(&apiProtoFindMaxServer{stream})
+}
+
+type ApiProto_FindMaxServer interface {
+	Send(*ResponseFindmax) error
+	Recv() (*RequestFindMax, error)
+	grpc.ServerStream
+}
+
+type apiProtoFindMaxServer struct {
+	grpc.ServerStream
+}
+
+func (x *apiProtoFindMaxServer) Send(m *ResponseFindmax) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *apiProtoFindMaxServer) Recv() (*RequestFindMax, error) {
+	m := new(RequestFindMax)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -458,6 +644,12 @@ var _ApiProto_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "Average",
 			Handler:       _ApiProto_Average_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "FindMax",
+			Handler:       _ApiProto_FindMax_Handler,
+			ServerStreams: true,
 			ClientStreams: true,
 		},
 	},

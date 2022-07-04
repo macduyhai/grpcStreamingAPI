@@ -16,13 +16,24 @@ message Request {
 message Response {
     string result = 1;
 }
+message RequestAverange {
+    int64  number = 1;
+}
 message ResponseAverange {
     float result = 1;
+}
+message RequestFindMax {
+    int64  number = 1;
+
+}
+message ResponseFindmax {
+    int64 Max = 1;
 }
 service ApiProto{
     rpc Greeter(HelloRequest)returns (HelloResponse){};
     rpc CheckPrimeNumber (Request)returns (stream Response){};
-    rpc Average(stream Request)returns (ResponseAverange){}
+    rpc Average(stream RequestAverange)returns (ResponseAverange){}
+    rpc FindMax (stream RequestFindMax) returns (stream ResponseFindmax){}
 }
 
 // message SomeNumbers {
