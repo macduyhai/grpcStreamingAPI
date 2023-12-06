@@ -9,12 +9,13 @@ import (
 	"sync"
 	"time"
 
-	streampb "github.com/macduyhai/grpcStreamingServer/streamproto"
 	"google.golang.org/grpc"
+
+	streampb "github.com/macduyhai/grpcStreamingServer/service/ewallet"
 )
 
 const (
-	name     = "Anna"
+	name     = "Simon"
 	pathTest = "numberstest.json"
 )
 

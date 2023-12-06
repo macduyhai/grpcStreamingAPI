@@ -1,6 +1,15 @@
-module github.com/macduyhai/grpcStreamingServer
+module grpc-appota/grpcStreamingAPI/client
 
 go 1.21.0
+
+replace (
+	github.com/macduyhai/grpcStreamingServer => ../pbtypes
+)
+
+require (
+	github.com/macduyhai/grpcStreamingServer v0.0.0-20231203171459-b5755f1ba4ba
+	google.golang.org/grpc v1.59.0
+)
 
 require (
 	github.com/golang/protobuf v1.5.3 // indirect
@@ -8,6 +17,5 @@ require (
 	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230822172742-b8732ec3820d // indirect
-	google.golang.org/grpc v1.59.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )

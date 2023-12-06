@@ -9,8 +9,9 @@ import (
 	"strconv"
 	"sync"
 
-	streampb "github.com/macduyhai/grpcStreamingServer/streamproto"
 	"google.golang.org/grpc"
+
+	streampb "github.com/macduyhai/grpcStreamingServer/service/ewallet"
 )
 
 type server struct {
