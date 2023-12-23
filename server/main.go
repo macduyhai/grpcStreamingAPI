@@ -35,13 +35,14 @@ func (s *server) CheckPrimeNumber(req *streampb.Request, stream streampb.ApiProt
 		wg.Add(1)
 		go func(num int32, i int) {
 			defer wg.Done()
-			log.Printf("STT; %d - Check number:%v", i, num)
+			log.Printf("SEND: %d - Check number:%v", i, num)
 			msg := NumberIsPrime(num)
 			stream.Send(&streampb.Response{
 				Result: msg,
 			})
 
 		}(int32(n), i)
+
 	}
 	wg.Wait()
 	return nil

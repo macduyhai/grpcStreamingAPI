@@ -25,6 +25,8 @@ type ListNums struct {
 
 func main() {
 	log.Println("Client Starting")
+
+	//TODO: Init Connection
 	conn, err := grpc.Dial("0.0.0.0:8989", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Connect to host error:%v", err)
@@ -33,17 +35,23 @@ func main() {
 	}
 	defer conn.Close()
 
+	//TODO: Register Client
 	c := streampb.NewApiProtoClient(conn)
+
+	//TODO: Process logic
+
 	// Unary API
 	SayHello(c)
-	// Streaming server API
-	ln := LoadDataTest(pathTest)
-	// log.Println(ln.Nums)
-	CheckPrime(c, ln.Nums)
-	//Streaming Client API
-	GetAverage(c, ln.Nums)
+
+	//// Streaming server API
+	//ln := LoadDataTest(pathTest)
+	//CheckPrime(c, ln.Nums)
+	//
+	////Streaming Client API
+	//GetAverage(c, ln.Nums)
+	//
 	// Bi Directional API
-	FindMax(c, ln.Nums)
+	//FindMax(c, ln.Nums)
 
 }
 
@@ -92,7 +100,7 @@ func CheckPrime(c streampb.ApiProtoClient, arr []int32) {
 
 }
 
-//Streaming Client API
+// Streaming Client API
 
 func GetAverage(c streampb.ApiProtoClient, arr []int32) {
 	startTime := time.Now()
@@ -117,11 +125,11 @@ func GetAverage(c streampb.ApiProtoClient, arr []int32) {
 		log.Fatalf("Error while rev from server:%v", err)
 	}
 	log.Printf("Avarage response -> %v", resp)
-	log.Printf("Execution time %s\n", time.Since(startTime))
+	log.Printf("Number request: %v - Execution time %s\n", len(arr), time.Since(startTime))
 
 }
 
-//FindMax : BI Directionall API
+//FindMax : BI Directional API
 
 func FindMax(s streampb.ApiProtoClient, arr []int32) {
 	startTime := time.Now()

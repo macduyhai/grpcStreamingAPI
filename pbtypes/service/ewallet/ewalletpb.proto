@@ -14,17 +14,6 @@ option (gogoproto.goproto_registration) = true;
 // Enable generation of XXX_MessageName methods for grpc-go/status.
 option (gogoproto.messagename_all) = true;
 
-//option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-//    info: {
-//        version: "0.0.1";
-//    };
-//    external_docs: {
-//        url: "github.com/macduyhai/grpcStreamingServer/pbtypes/service/ewallet";
-//        description: "Ewallet API (Used for simon)";
-//    }
-//    schemes: HTTPS;
-//};
-
 package service.ewallet;
 
 option go_package = "";
@@ -34,6 +23,7 @@ message HelloRequest {
 }
 message HelloResponse {
     string message =1;
+    string val = 2;
 }
 message Request {
     repeated int32 numbers = 1;
@@ -60,7 +50,11 @@ service ApiProto{
             get: "/v0/greeter"
         };
     };
-    rpc CheckPrimeNumber (Request)returns (stream Response){};
+    rpc CheckPrimeNumber (Request)returns (stream Response){
+        option (google.api.http) = {
+            post: "/v0/prime-number"
+        };
+    };
     rpc Average(stream RequestAverange)returns (ResponseAverange){}
     rpc FindMax (stream RequestFindMax) returns (stream ResponseFindmax){}
 }

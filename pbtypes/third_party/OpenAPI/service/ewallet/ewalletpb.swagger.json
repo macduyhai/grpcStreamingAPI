@@ -40,6 +40,37 @@
           "ApiProto"
         ]
       }
+    },
+    "/v0/prime-number": {
+      "post": {
+        "operationId": "ApiProto_CheckPrimeNumber",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/ewalletResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/runtimeStreamError"
+                }
+              },
+              "title": "Stream result of ewalletResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "ApiProto"
+        ]
+      }
     }
   },
   "definitions": {

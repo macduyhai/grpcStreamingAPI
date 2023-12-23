@@ -1,10 +1,7 @@
 gen-proto:
-	 protoc --go_out=. --go_opt=paths=source_relative \
-        --go-grpc_out=. --go-grpc_opt=paths=source_relative \
-    pbtypes/service/ewallet/*.proto \
-    --swagger_out=third_party/OpenAPI/ \
-    pbtypes/service/ewallet/*.proto
-
+	protoc --go_out=. --go_opt=paths=source_relative \
+            --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+              service/ewallet/*.proto \
 #	 protoc streamproto/streampb.proto --go_out=plugins=grpc:.
 #	 protoc --java_out=. example.proto
 #    protoc --python_out=. example.proto
